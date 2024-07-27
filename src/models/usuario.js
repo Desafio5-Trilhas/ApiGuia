@@ -1,7 +1,13 @@
+'use restrict';
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
+const AcessoHistorico = require('./acessoHistorico.js');
 
-class Usuario extends Model {}
+class Usuario extends Model {
+  static associations(models) {
+    Usuario.hasMany(models.AcessoHistorico, { foreignKey: 'id_usuario' });
+  }
+}
 
 Usuario.init(
   {
@@ -42,5 +48,9 @@ Usuario.init(
     timestamps: false,
   },
 );
+
+//Relacionamentos
+//Usuario.hasMany(AcessoHistorico, { foreignKey: 'id_usuario' });
+//AcessoHistorico.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
 module.exports = Usuario;
