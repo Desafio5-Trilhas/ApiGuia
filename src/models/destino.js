@@ -1,10 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
-const AcessoHistorico = require('./acessoHistorico.js');
 
 class Destino extends Model {
   static associations(models) {
     Destino.hasMany(models.AcessoHistorico, { foreignKey: 'id_destino' });
+    Destino.hasMany(models.Imagem, { foreignKey: 'id_destino' });
+    Destino.hasMany(models.Rota, { foreignKey: 'id_destino' });
+    Destino.hasMany(models.Missao, { foreignKey: 'id_destino' });
+    Destino.hasMany(models.MissaoConcluida, { foreignKey: 'id_destino' });
   }
 }
 
