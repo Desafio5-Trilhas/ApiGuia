@@ -1,12 +1,12 @@
 const { Sequelize } = require('sequelize');
-const config = require('../db/config.js');
+const config = require('./config.js');
 
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
 
 const sequelize = new Sequelize(dbConfig.url, {
-  host: dbConfig.dialect,
-  dialect: dbConfig.logging,
+  dialect: dbConfig.dialect,
+  logging: dbConfig.logging,
 });
 
 module.exports = sequelize;
