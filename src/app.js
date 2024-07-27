@@ -1,5 +1,6 @@
 const express = require('express');
 const sequelize = require('./db/connection.js');
+const routes = require('./routes/index.js');
 const app = express();
 
 app.use(express.json());
@@ -11,9 +12,9 @@ app.use(express.json());
     console.log('API conectada ao banco de dados.');
   } catch (error) {
     console.error('Não foi possível conectar ao banco de dados:', error);
-  } finally {
-    await sequelize.close();
   }
 })();
+
+routes(app);
 
 module.exports = app;
