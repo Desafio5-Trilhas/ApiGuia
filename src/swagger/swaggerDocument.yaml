@@ -19,7 +19,7 @@ servers:
   - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
 paths:
-  /api/users/signup:
+  /api/usuario/signup:
     post:
       tags:
       - Usuários
@@ -76,7 +76,7 @@ paths:
                       properties:
                         param:
                           type: string
-  /api/users/login:
+  /api/usuario/login:
     post:
       summary: Autentica um usuário existente
       tags:
@@ -126,7 +126,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiKeyError"
-  /sendEmail:
+  /api/usuario/sendEmail:
     post:
       summary: Envia um email para o nosso suporte da landing page
       tags:
@@ -181,7 +181,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ApiKeyError" 
-  /api/users:
+  /api/usuario:
     get:
       summary: Retorna todos os usuários
       tags:
@@ -265,7 +265,7 @@ paths:
                     type: integer
                   message:
                     type: string        
-  /api/users/{email}:
+  /api/usuario/{email}:
     get:
       summary: Retorna informações cadastradas do usuário
       tags:
