@@ -41,7 +41,7 @@ paths:
                   type: string
       responses:
         201:
-          description: Usuário criado com sucesso
+          description: Sucesso
           content:
             application/json:
               schema:
@@ -49,7 +49,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Usuário criado."
+                    example: "Usuário criado com sucesso."
         403:
           description: API Key não fornecida
           content:
@@ -142,7 +142,7 @@ paths:
                   type: string
                 message:
                   type: string
-                nameUser:
+                nameUsuario:
                   type: string  
                 where:
                   type: string
@@ -192,7 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Usuario"
         403:
           description: API Key não fornecida
           content:
@@ -282,7 +282,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Usuario"
         404:
           description: Falha ao executar
           content:
@@ -327,7 +327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Usuario"
         404:
           description: Falha ao executar
           content:
@@ -356,7 +356,248 @@ paths:
                     type: integer
                   message:
                     type: string        
-
+  /api/destino:
+    post:
+      tags:
+      - Destinos
+      summary: Cria um novo destino
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                descricao:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Destino criado com sucesso."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string
+    get:
+      summary: Retorna todos os destinos
+      tags:
+      - Destinos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Destino"   
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+    delete:
+      summary: Deleta destino
+      tags:
+      - Destinos
+      parameters:
+      - name: email
+        in: path
+        schema: 
+          type: string
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Destino deletado."
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+  /api/destino/{id}:
+    put:
+      summary: Altera as informações cadastradas do destino
+      tags:
+      - Destinos
+      parameters:
+      - name: email
+        in: path
+        schema: 
+          type: string
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                example: 'Destino atualizado.'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Destino não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+    get:
+      summary: Retorna informações cadastradas do destino
+      tags:
+      - Destinos
+      parameters:
+      - name: id
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_destino:
+                    type: integer
+                  titulo:
+                    type: string
+                  descricao:
+                    type: string
+                  imagens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Imagem'
+                  rotas:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rota'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Destino não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -365,10 +606,10 @@ components:
       name: x-api-key
       description: API Key necessária para autenticação
   schemas:
-    User:
+    Usuario:
       type: object
       properties:
-        id:
+        id_usuario:
           type: integer
         nome:
           type: string
@@ -377,6 +618,37 @@ components:
         status_conta:
           type: string
         documento:
+          type: string
+    Destino:
+      type: object
+      properties:
+        id_destino:
+          type: integer
+        titulo: 
+          type: string
+        descricao:
+          type: string
+      schemas:
+    Imagem:
+      type: object
+      properties:
+        id_imagem:
+          type: integer
+        link:
+          type: string
+          format: uri
+        id_destino:
+          type: integer
+    Rota:
+      type: object
+      properties:
+        id_rota:
+          type: integer
+        id_destino:
+          type: integer
+        nome:
+          type: string
+        tipo:
           type: string
     ApiKeyError:
       type: object

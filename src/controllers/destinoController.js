@@ -4,7 +4,9 @@ module.exports = class destinoController {
   static createNewDestiny = async (req, res) => {
     try {
       const newDestino = await destinoService.createDestiny(req.body);
-      return res.status(201).json({ status: 201, message: 'Destino criado.' });
+      return res
+        .status(201)
+        .json({ status: 201, message: 'Destino criado com sucesso.' });
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,

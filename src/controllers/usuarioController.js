@@ -4,7 +4,9 @@ module.exports = class userController {
   static createUser = async (req, res) => {
     try {
       const newUser = await userService.createUser(req.body);
-      return res.status(201).json({ status: 201, message: 'Usuário criado.' });
+      return res
+        .status(201)
+        .json({ status: 201, message: 'Usuário criado com sucesso.' });
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,
