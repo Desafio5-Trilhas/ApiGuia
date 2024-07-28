@@ -4,11 +4,6 @@ const sequelize = require('../db/connection.js');
 const bcrypt = require('bcrypt');
 
 class Usuario extends Model {
-  static associations(models) {
-    Usuario.hasMany(models.AcessoHistorico, { foreignKey: 'id_usuario' });
-    Usuario.hasMany(models.MissaoConcluida, { foreignKey: 'id_usuario' });
-  }
-
   static async createNewUser(newUser) {
     const saltRounds = 10;
     newUser.senha = await bcrypt.hash(newUser.senha, saltRounds);

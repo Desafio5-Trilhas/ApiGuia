@@ -3,12 +3,7 @@ const sequelize = require('../db/connection.js');
 const Usuario = require('./usuario.js');
 const Destino = require('./destino.js');
 
-class AcessoHistorico extends Model {
-  static associations(models) {
-    AcessoHistorico.belongsTo(models.Usuario, { foreignKey: 'id_usuario' });
-    AcessoHistorico.belongsTo(models.Destino, { foreignKey: 'id_destino' });
-  }
-}
+class AcessoHistorico extends Model {}
 
 AcessoHistorico.init(
   {

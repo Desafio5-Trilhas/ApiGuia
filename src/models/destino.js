@@ -2,12 +2,30 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 
 class Destino extends Model {
-  static associations(models) {
-    Destino.hasMany(models.AcessoHistorico, { foreignKey: 'id_destino' });
-    Destino.hasMany(models.Imagem, { foreignKey: 'id_destino' });
-    Destino.hasMany(models.Rota, { foreignKey: 'id_destino' });
-    Destino.hasMany(models.Missao, { foreignKey: 'id_destino' });
-    Destino.hasMany(models.MissaoConcluida, { foreignKey: 'id_destino' });
+  static async createNewDestiny(newDestino) {
+    return await Destino.create(newDestino);
+  }
+
+  static async getAllDestinies() {
+    return await Destino.findAll();
+  }
+
+  static async findById(id) {
+    return await Destino.findByPk(id, {
+      include: ['imagens', 'rotas'],
+    });
+  }
+
+  static async updateDestiny(id, data) {
+    return await Destino.update(data, {
+      where: { id: id },
+    });
+  }
+
+  static async deleteDestiny(id) {
+    return await Destino.destroy({
+      where: { id: id },
+    });
   }
 }
 

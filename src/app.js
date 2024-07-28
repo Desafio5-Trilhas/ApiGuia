@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const path = require('path');
 const cors = require('cors');
+const defineAssociations = require('./models/associacoes.js');
 const app = express();
 
 const swaggerDocument = YAML.load(
@@ -26,6 +27,7 @@ app.use(cors());
 (async () => {
   try {
     await sequelize.authenticate();
+    defineAssociations();
     await sequelize.sync();
     console.log('API conectada ao banco de dados.');
   } catch (error) {

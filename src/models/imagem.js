@@ -2,11 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 const Destino = require('./destino.js');
 
-class Imagem extends Model {
-  static associations(models) {
-    Imagem.belongsTo(models.Destino, { foreignKey: 'id_destino' });
-  }
-}
+class Imagem extends Model {}
 
 Imagem.init(
   {

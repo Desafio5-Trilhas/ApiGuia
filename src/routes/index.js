@@ -1,5 +1,6 @@
 const express = require('express');
-const users = require('./usuarioRoute.js');
+const usuario = require('./usuarioRoute.js');
+const destino = require('./destinoRoute.js');
 
 const routes = (app) => {
   app
@@ -8,7 +9,8 @@ const routes = (app) => {
       res.status(200).send('Você está na API do Guia Turístico MA.'),
     );
 
-  app.use(express.json(), users);
+  app.use(express.json(), usuario);
+  app.use(express.json(), destino);
 };
 
 module.exports = routes;

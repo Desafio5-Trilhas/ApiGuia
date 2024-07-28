@@ -2,11 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 const Destino = require('./destino.js');
 
-class Rota extends Model {
-  static associations(models) {
-    Rota.belongsTo(models.Destino, { foreignKey: 'id_destino' });
-  }
-}
+class Rota extends Model {}
 
 Rota.init(
   {

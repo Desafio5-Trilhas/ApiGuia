@@ -4,13 +4,7 @@ const Destino = require('./destino.js');
 const Usuario = require('./usuario.js');
 const Missao = require('./missao.js');
 
-class MissaoConcluida extends Model {
-  static associations(models) {
-    MissaoConcluida.belongsTo(models.Destino, { foreignKey: 'id_destino' });
-    MissaoConcluida.belongsTo(models.Usuario, { foreignKey: 'id_usuario' });
-    MissaoConcluida.belongsTo(models.Missao, { foreignKey: 'id_missao' });
-  }
-}
+class MissaoConcluida extends Model {}
 
 MissaoConcluida.init(
   {

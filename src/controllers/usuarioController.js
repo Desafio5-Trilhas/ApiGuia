@@ -43,9 +43,6 @@ module.exports = class userController {
   static findUserByEmail = async (req, res) => {
     try {
       const user = await userService.findUserByEmail(req.params.email);
-      if (!user) {
-        throw new NotFound('Usuário não encontrado.');
-      }
       return res.status(200).json(user);
     } catch (err) {
       return res.status(err.status || 500).json({
