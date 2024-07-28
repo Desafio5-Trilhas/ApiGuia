@@ -3,7 +3,7 @@ const Destino = require('./destino.js');
 const Imagem = require('./imagem.js');
 const Missao = require('./missao.js');
 const MissaoConcluida = require('./missaoConcluida.js');
-const Rota = require('./Rota.js');
+const Rota = require('./rota.js');
 const Usuario = require('./usuario.js');
 
 const defineAssociations = () => {
