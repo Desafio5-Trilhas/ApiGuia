@@ -46,7 +46,6 @@ module.exports = class userService {
       await User.deleteUser(email);
       return true;
     } catch (err) {
-      console.log(err);
       throw new InternalServerError();
     }
   };
@@ -56,7 +55,6 @@ module.exports = class userService {
       const userUpdated = User.updateUser(email, dados);
       return true;
     } catch (err) {
-      console.log(err);
       throw new UnprocessableEntity();
     }
   };
