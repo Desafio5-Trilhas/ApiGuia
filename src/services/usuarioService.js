@@ -1,4 +1,5 @@
 const User = require('../models/usuario.js');
+const { Sequelize } = require('sequelize');
 const {
   NotFound,
   UnprocessableEntity,
@@ -11,6 +12,9 @@ module.exports = class userService {
       const user = await User.createNewUser(newUser);
       return user;
     } catch (err) {
+      if (err instanceof Sequelize.UniqueConstraintError) {
+        throw new UnprocessableEntity('O email já existe');
+      }
       throw new UnprocessableEntity();
     }
   };
@@ -39,10 +43,10 @@ module.exports = class userService {
 
   static deleteUser = async (email) => {
     try {
-      await SaveFile.deleteSaveFiles(email);
       await User.deleteUser(email);
       return true;
     } catch (err) {
+      console.log(err);
       throw new InternalServerError();
     }
   };
@@ -50,8 +54,9 @@ module.exports = class userService {
   static updateUserData = async (email, dados) => {
     try {
       const userUpdated = User.updateUser(email, dados);
-      return userUpdated;
+      return true;
     } catch (err) {
+      console.log(err);
       throw new UnprocessableEntity();
     }
   };

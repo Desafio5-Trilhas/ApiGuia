@@ -16,27 +16,27 @@ class Usuario extends Model {
   }
 
   static async findAllUsers() {
-    return await Usuario.findAll();
+    return await Usuario.findAll({
+      attributes: ['id_usuario', 'nome', 'email', 'status_conta', 'documento'],
+    });
   }
 
   static async findByEmail(email) {
-    return await prisma.user.findUnique({
+    return await Usuario.findOne({
+      attributes: ['id_usuario', 'nome', 'email', 'status_conta', 'documento'],
       where: { email: email },
     });
   }
 
   static async deleteUser(email) {
-    return await prisma.user.delete({
-      where: { email },
+    return await Usuario.destroy({
+      where: { email: email },
     });
   }
 
   static async updateUser(email, data) {
-    return await prisma.user.update({
-      where: { email },
-      data: {
-        ...data,
-      },
+    return await Usuario.update(data, {
+      where: { email: email },
     });
   }
 }
@@ -55,9 +55,10 @@ Usuario.init(
     email: {
       type: DataTypes.STRING(45),
       allowNull: false,
+      unique: true,
     },
     senha: {
-      type: DataTypes.STRING(45),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     status_conta: {
