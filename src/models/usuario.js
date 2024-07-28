@@ -24,7 +24,14 @@ class Usuario extends Model {
 
   static async findByEmail(email) {
     return await Usuario.findOne({
-      attributes: ['id_usuario', 'nome', 'email', 'status_conta', 'documento'],
+      attributes: [
+        'id_usuario',
+        'nome',
+        'email',
+        'senha',
+        'status_conta',
+        'documento',
+      ],
       where: { email: email },
     });
   }

@@ -15,13 +15,16 @@ module.exports = class userController {
 
   static login = async (req, res) => {
     try {
-      const { email, password } = req.body;
-      const user = await userService.loginUser(email, password);
+      const { email, senha } = req.body;
+      const user = await userService.loginUser(email, senha);
       return res
         .status(200)
         .json({ id: user.id, acess_token: user.acess_token });
     } catch (err) {
-      res.status(400).json(err);
+      return res.status(err.status || 500).json({
+        status: err.status || 500,
+        message: err.message || 'Internal Error',
+      });
     }
   };
 

@@ -1,5 +1,7 @@
 const User = require('../models/usuario.js');
 const { Sequelize } = require('sequelize');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const {
   NotFound,
   UnprocessableEntity,
@@ -59,13 +61,13 @@ module.exports = class userService {
     }
   };
 
-  static loginUser = async (email, password) => {
+  static loginUser = async (email, senha) => {
     try {
       const user = await User.findByEmail(email);
       if (!user) {
         throw new NotFound('Email ou senha incorretos.');
       }
-      const passwordMatch = await bcrypt.compare(password, user.password);
+      const passwordMatch = await bcrypt.compare(senha, user.senha);
       if (!passwordMatch) {
         throw new NotFound('Email ou senha incorretos.');
       }
@@ -78,6 +80,7 @@ module.exports = class userService {
       if (err instanceof NotFound) {
         throw err;
       }
+      console.log(err);
       throw new InternalServerError();
     }
   };
