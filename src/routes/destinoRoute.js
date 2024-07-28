@@ -4,18 +4,26 @@ const { verifyApiKey } = require('../middlewares/authMiddleware');
 
 const routes = express.Router();
 
-routes.post('/api/destino', verifyApiKey, destinoController.createNewDestiny);
-routes.get('/api/destino', verifyApiKey, destinoController.findDestinies);
-routes.get('/api/destino/:id', verifyApiKey, destinoController.findDestinyById);
+routes.post(
+  '/api/destino',
+  verifyApiKey,
+  destinoController.createNewDestination,
+);
+routes.get('/api/destino', verifyApiKey, destinoController.findDestinations);
+routes.get(
+  '/api/destino/:id',
+  verifyApiKey,
+  destinoController.findDestinationById,
+);
 routes.put(
   '/api/destino/:id',
   verifyApiKey,
-  destinoController.updateDataDestiny,
+  destinoController.updateDataDestination,
 );
 routes.delete(
   '/api/destino/:id',
   verifyApiKey,
-  destinoController.deleteDestinyById,
+  destinoController.deleteDestinationById,
 );
 
 module.exports = routes;

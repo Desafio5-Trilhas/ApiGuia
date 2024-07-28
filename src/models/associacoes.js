@@ -16,7 +16,7 @@ const defineAssociations = () => {
   Rota.belongsTo(Destino, { foreignKey: 'id_destino' });
 
   // Associação com Missao-Destino
-  Destino.hasMany(Missao, { foreignKey: 'id_destino' });
+  Destino.hasMany(Missao, { foreignKey: 'id_destino', as: 'missoes' });
   Missao.belongsTo(Destino, { foreignKey: 'id_destino' });
 
   // Associação com MissaoConcluida-Destino

@@ -2,7 +2,19 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 const Destino = require('./destino.js');
 
-class Missao extends Model {}
+class Missao extends Model {
+  static async createQuestion(newQuestion) {
+    return await Missao.create(newQuestion);
+  }
+
+  static async getAllQuestions() {
+    return await Missao.findAll();
+  }
+
+  static async findQuestionById(id) {
+    return await Missao.findByPk(id);
+  }
+}
 
 Missao.init(
   {

@@ -2,27 +2,27 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 
 class Destino extends Model {
-  static async createNewDestiny(newDestino) {
+  static async createNewDestination(newDestino) {
     return await Destino.create(newDestino);
   }
 
-  static async getAllDestinies() {
+  static async getAllDestinations() {
     return await Destino.findAll();
   }
 
-  static async findById(id) {
+  static async findDestinationById(id) {
     return await Destino.findByPk(id, {
-      include: ['imagens', 'rotas'],
+      include: ['imagens', 'rotas', 'missoes'],
     });
   }
 
-  static async updateDestiny(id, data) {
+  static async updateDestination(id, data) {
     return await Destino.update(data, {
       where: { id: id },
     });
   }
 
-  static async deleteDestiny(id) {
+  static async deleteDestination(id) {
     return await Destino.destroy({
       where: { id: id },
     });

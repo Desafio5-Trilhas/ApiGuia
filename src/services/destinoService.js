@@ -7,27 +7,27 @@ const {
 } = require('./exceptions/httpRequestError');
 
 module.exports = class destinoService {
-  static createDestiny = async (newDestino) => {
+  static createDestination = async (newDestino) => {
     try {
-      const destino = await Destino.createNewDestiny(newDestino);
+      const destino = await Destino.createNewDestination(newDestino);
       return destino;
     } catch (err) {
       throw new UnprocessableEntity();
     }
   };
 
-  static findAllDestinies = async () => {
+  static findAllDestinations = async () => {
     try {
-      const destinos = await Destino.getAllDestinies();
+      const destinos = await Destino.getAllDestinations();
       return destinos;
     } catch (err) {
       throw new InternalServerError();
     }
   };
 
-  static findDestinyByPk = async (id) => {
+  static findDestinationByPk = async (id) => {
     try {
-      const destino = await Destino.findById(id);
+      const destino = await Destino.findDestinationById(id);
       if (!destino) {
         throw new NotFound('Destino não encontrado.');
       }
@@ -37,18 +37,18 @@ module.exports = class destinoService {
     }
   };
 
-  static deleteDestiny = async (id) => {
+  static deleteDestination = async (id) => {
     try {
-      await Destino.deleteDestiny(id);
+      await Destino.deleteDestination(id);
       return true;
     } catch (err) {
       throw new InternalServerError();
     }
   };
 
-  static updateDestinyData = async (id, dados) => {
+  static updateDestinationData = async (id, dados) => {
     try {
-      const destinoAtualizato = Destino.updateDestiny(id, dados);
+      const destinoAtualizato = Destino.updateDestination(id, dados);
       return true;
     } catch (err) {
       throw new UnprocessableEntity();

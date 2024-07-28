@@ -570,6 +570,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Rota'
+                  missoes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Missao'
         404:
           description: Falha ao executar
           content:
@@ -649,6 +653,19 @@ components:
         nome:
           type: string
         tipo:
+          type: string
+    Missao:
+      type: object
+      properties:
+        id_missao:
+          type: integer
+        id_destino:
+          type: integer
+        descricao:
+          type: string
+        dica1:
+          type: string
+        dica2: 
           type: string
     ApiKeyError:
       type: object

@@ -1,9 +1,9 @@
 const destinoService = require('../services/destinoService');
 
 module.exports = class destinoController {
-  static createNewDestiny = async (req, res) => {
+  static createNewDestination = async (req, res) => {
     try {
-      const newDestino = await destinoService.createDestiny(req.body);
+      const newDestino = await destinoService.createDestination(req.body);
       return res
         .status(201)
         .json({ status: 201, message: 'Destino criado com sucesso.' });
@@ -15,9 +15,9 @@ module.exports = class destinoController {
     }
   };
 
-  static findDestinies = async (req, res) => {
+  static findDestinations = async (req, res) => {
     try {
-      const destinos = await destinoService.findAllDestinies();
+      const destinos = await destinoService.findAllDestinations();
       return res.status(200).json(destinos);
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -27,9 +27,9 @@ module.exports = class destinoController {
     }
   };
 
-  static findDestinyById = async (req, res) => {
+  static findDestinationById = async (req, res) => {
     try {
-      const destino = await destinoService.findDestinyByPk(req.params.id);
+      const destino = await destinoService.findDestinationByPk(req.params.id);
       return res.status(200).json(destino);
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -39,9 +39,9 @@ module.exports = class destinoController {
     }
   };
 
-  static deleteDestinyById = async (req, res) => {
+  static deleteDestinationById = async (req, res) => {
     try {
-      await destinoService.deleteDestiny(req.body.id);
+      await destinoService.deleteDestination(req.body.id);
       return res.status(200).json({ message: 'Destino deletado.' });
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -51,9 +51,9 @@ module.exports = class destinoController {
     }
   };
 
-  static updateDataDestiny = async (req, res) => {
+  static updateDataDestination = async (req, res) => {
     try {
-      const userAtualizado = await destinoService.updateDestinyData(
+      const userAtualizado = await destinoService.updateDestinationData(
         req.params.id,
         req.body,
       );
