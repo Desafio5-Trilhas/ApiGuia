@@ -1,0 +1,388 @@
+openapi: 3.0.0
+info: 
+  title: GUIA-TURISTICO-MARANHÃO
+    version: 1.0.0
+  description: 'API que alimenta website de guia de turismo do Maranhão - Desafio 5 Programa Trilhas 2024'
+  contact: 
+    name: Suporte a Devs
+    email: gabrielfelipecarvalho1@gmail.com
+  license:
+    name: "Lincença: GPLv3"
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+externalDocs:
+  description: Link repositório
+  url: https://github.com/Desafio5-Trilhas/ApiGuiaTuristico
+tags:
+- name: Usuários
+  description: Ações quanto ao usuário
+servers:
+  - url: https://testetes.com
+  - url: http://localhost:3000/
+paths:
+  /api/users/signup:
+    post:
+      tags:
+      - Usuários
+      summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+                documento:
+                  type: string
+      responses:
+        201:
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário criado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string
+  /api/users/login:
+    post:
+      summary: Autentica um usuário existente
+      tags:
+        - Usuários
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        200:
+          description: Autenticação bem-sucedida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  acess_token:
+                    type: string
+        400:
+          description: Credenciais Inválidas
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError" 
+
+        401:
+          description: 	API Key inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"
+  /sendEmail:
+    post:
+      summary: Envia um email para o nosso suporte da landing page
+      tags:
+        - Usuários
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                message:
+                  type: string
+                nameUser:
+                  type: string  
+                where:
+                  type: string
+      responses:
+        200:
+          description: E-mail enviado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        400:
+          description: Erro durante o envio do e-mail
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+        401:
+          description: 	API Key inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError" 
+  /api/users:
+    get:
+      summary: Retorna todos os usuários
+      tags:
+      - Usuários
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+    delete:
+      summary: Deleta usuário
+      tags:
+      - Usuários
+      parameters:
+      - name: email
+        in: path
+        schema: 
+          type: string
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuário deletado."
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+  /users/{email}:
+    get:
+      summary: Retorna informações cadastradas do usuário
+      tags:
+      - Usuários
+      parameters:
+      - name: email
+        in: path
+        schema: 
+          type: string
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+    put:
+      summary: Altera as informações cadastradas do usuário
+      tags:
+      - Usuários
+      parameters:
+      - name: email
+        in: path
+        schema: 
+          type: string
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API Key necessária para autenticação
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        status_conta:
+          type: string
+        documento:
+          type: string
+    ApiKeyError:
+      type: object
+      properties:
+        error:
+          type: string  
+
+security:
+  - ApiKeyAuth: []

@@ -12,6 +12,7 @@ class Usuario extends Model {
   static async createNewUser(newUser) {
     const saltRounds = 10;
     newUser.senha = await bcrypt.hash(newUser.senha, saltRounds);
+    newUser.status_conta = 'ATIVO';
     return await Usuario.create(newUser);
   }
 

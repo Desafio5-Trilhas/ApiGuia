@@ -13,22 +13,22 @@ const {
 const routes = express.Router();
 
 routes.post(
-  '/api/user/signup',
+  '/api/users/signup',
   verifyApiKey,
   createUserValidator,
   validateData,
   userController.createUser,
 );
 routes.post(
-  '/api/user/login',
+  '/api/users/login',
   verifyApiKey,
   loginValidator,
   validateData,
   userController.login,
 );
-routes.get('/api/user/:email', verifyApiKey, userController.findUserByEmail);
-routes.get('/api/user', verifyApiKey, userController.findAllUsers);
-routes.put('/api/user/:email', verifyApiKey, userController.atualizaDadosUser);
-routes.delete('/api/user', verifyApiKey, userController.deleteUser);
+routes.get('/api/users/:email', verifyApiKey, userController.findUserByEmail);
+routes.get('/api/users', verifyApiKey, userController.findAllUsers);
+routes.put('/api/users/:email', verifyApiKey, userController.atualizaDadosUser);
+routes.delete('/api/users', verifyApiKey, userController.deleteUser);
 
 module.exports = routes;
