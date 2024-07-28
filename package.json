@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "dev": "node --watch server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,5 +22,8 @@
     "sequelize": "^6.37.3",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
