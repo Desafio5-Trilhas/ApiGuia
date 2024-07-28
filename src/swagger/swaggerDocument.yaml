@@ -265,7 +265,7 @@ paths:
                     type: integer
                   message:
                     type: string        
-  /users/{email}:
+  /api/users/{email}:
     get:
       summary: Retorna informações cadastradas do usuário
       tags:
