@@ -16,7 +16,7 @@ tags:
 - name: Usuários
   description: Ações quanto ao usuário
 servers:
-  - url: https://testetes.com
+  - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
 paths:
   /api/users/signup:
