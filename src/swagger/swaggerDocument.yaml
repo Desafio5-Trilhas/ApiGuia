@@ -15,6 +15,10 @@ externalDocs:
 tags:
 - name: Usuários
   description: Ações quanto ao usuário
+- name: Destinos
+  description: Ações quanto ao Destino Turístico
+- name: Missões
+  description: Ações quanto às missões por destino turístico
 servers:
   - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
@@ -356,6 +360,7 @@ paths:
                     type: integer
                   message:
                     type: string        
+  
   /api/destino:
     post:
       tags:
@@ -602,6 +607,287 @@ paths:
                     type: integer
                   message:
                     type: string              
+
+  /api/missao:
+    post:
+      tags:
+      - Missões
+      summary: Cria uma nova missão
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_destino:
+                  type: integer
+                descricao:
+                  type: string 
+                dica1:
+                  type: string
+                dica2:
+                  type: string             
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Missão criada com sucesso."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string
+    get:
+      summary: Retorna todas as missões
+      tags:
+      - Missões
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Missao"   
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+  /api/missao/{id_missao}:
+    put:
+      summary: Altera as informações cadastradas da missao
+      tags:
+      - Missões
+      parameters:
+      - name: id_missao
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                example: 'Missão atualizada.'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Missão não encontrada."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string        
+    delete:
+      summary: Deleta missão
+      tags:
+      - Missões
+      parameters:
+      - name: id_missão
+        in: path
+        schema: 
+          type: id
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Missão deletada."
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string
+  /api/missao/id/{id_missao}:
+    get:
+      summary: Retorna informações cadastradas da missão
+      tags:
+      - Missões
+      parameters:
+      - name: id_missao
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Missao'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Missão não encontrada."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string           
+  /api/missao/destino/{id_destino}:
+    get:
+      summary: Retorna informações cadastradas da missão para o destino específico
+      tags:
+      - Missões
+      parameters:
+      - name: id_destino
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Missao'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Missão não encontrada."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string           
 components:
   securitySchemes:
     ApiKeyAuth:
