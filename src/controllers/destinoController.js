@@ -1,4 +1,4 @@
-const destinoService = require('../services/destinoService');
+const destinoService = require('../services/destinoService.js');
 
 module.exports = class destinoController {
   static createNewDestination = async (req, res) => {
@@ -53,7 +53,7 @@ module.exports = class destinoController {
 
   static updateDataDestination = async (req, res) => {
     try {
-      const userAtualizado = await destinoService.updateDestinationData(
+      const destinoAtualizado = await destinoService.updateDestinationData(
         req.params.id,
         req.body,
       );

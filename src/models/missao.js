@@ -11,8 +11,26 @@ class Missao extends Model {
     return await Missao.findAll();
   }
 
+  static async getAllQuestionsByDestination(id_destination) {
+    return await Missao.findAll({
+      where: { id_destino: id_destination },
+    });
+  }
+
   static async findQuestionById(id) {
     return await Missao.findByPk(id);
+  }
+
+  static async updateQuestion(id, data) {
+    return await Missao.update(data, {
+      where: { id: id },
+    });
+  }
+
+  static async deleteQuestion(id) {
+    return await Missao.destroy({
+      where: { id: id },
+    });
   }
 }
 
