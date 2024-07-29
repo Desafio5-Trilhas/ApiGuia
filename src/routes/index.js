@@ -1,6 +1,7 @@
 const express = require('express');
 const usuario = require('./usuarioRoute.js');
 const destino = require('./destinoRoute.js');
+const missao = require('./missaoRoute.js');
 
 const routes = (app) => {
   app
@@ -11,6 +12,7 @@ const routes = (app) => {
 
   app.use(express.json(), usuario);
   app.use(express.json(), destino);
+  app.use(express.json(), missao);
 };
 
 module.exports = routes;
