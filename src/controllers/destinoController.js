@@ -41,7 +41,7 @@ module.exports = class destinoController {
 
   static deleteDestinationById = async (req, res) => {
     try {
-      await destinoService.deleteDestination(req.body.id);
+      await destinoService.deleteDestination(req.params.id);
       return res.status(200).json({ message: 'Destino deletado.' });
     } catch (err) {
       return res.status(err.status || 500).json({

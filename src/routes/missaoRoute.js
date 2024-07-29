@@ -16,6 +16,10 @@ routes.get(
   missaoController.findQuestionByDestinationId,
 );
 routes.put('/api/missao', verifyApiKey, missaoController.updateDataQuestion);
-routes.delete('/api/missao', verifyApiKey, missaoController.deleteQuestionById);
+routes.delete(
+  '/api/missao/:id',
+  verifyApiKey,
+  missaoController.deleteQuestionById,
+);
 
 module.exports = routes;

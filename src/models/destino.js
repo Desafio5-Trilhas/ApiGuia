@@ -18,13 +18,13 @@ class Destino extends Model {
 
   static async updateDestination(id, data) {
     return await Destino.update(data, {
-      where: { id: id },
+      where: { id_destino: id },
     });
   }
 
   static async deleteDestination(id) {
     return await Destino.destroy({
-      where: { id: id },
+      where: { id_destino: id },
     });
   }
 }

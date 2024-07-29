@@ -34,11 +34,14 @@ module.exports = class userService {
     try {
       const user = await User.findByEmail(email);
       if (!user) {
-        return false;
+        throw new NotFound('Usuário não encontrado.');
       }
       delete user.password;
       return user;
     } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
       throw new InternalServerError();
     }
   };
@@ -55,6 +58,9 @@ module.exports = class userService {
   static updateUserData = async (email, dados) => {
     try {
       const userUpdated = User.updateUser(email, dados);
+      if (!userUpdated[0] === 1) {
+        throw new UnprocessableEntity();
+      }
       return true;
     } catch (err) {
       throw new UnprocessableEntity();

@@ -443,55 +443,6 @@ paths:
                     type: integer
                   message:
                     type: string        
-    delete:
-      summary: Deleta destino
-      tags:
-      - Destinos
-      parameters:
-      - name: email
-        in: path
-        schema: 
-          type: string
-        required: true
-      responses:
-        200:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Destino deletado."
-        404:
-          description: Falha ao executar
-          content:
-            application/json:
-              example: "Usuario não encontrado."
-        403:
-          description: API Key não fornecida
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiKeyError"   
-        401:
-          description: API Key inválida
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiKeyError"   
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  message:
-                    type: string        
   /api/destino/{id}:
     put:
       summary: Altera as informações cadastradas do destino
@@ -601,7 +552,56 @@ paths:
                   status:
                     type: integer
                   message:
-                    type: string        
+                    type: string  
+    delete:
+      summary: Deleta destino
+      tags:
+      - Destinos
+      parameters:
+      - name: id_destino
+        in: path
+        schema: 
+          type: id
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Destino deletado."
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Usuario não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string              
 components:
   securitySchemes:
     ApiKeyAuth:

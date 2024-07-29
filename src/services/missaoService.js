@@ -32,6 +32,9 @@ module.exports = class missaoService {
       }
       return missoes;
     } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
       throw new InternalServerError();
     }
   };
@@ -44,6 +47,9 @@ module.exports = class missaoService {
       }
       return missoes;
     } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
       throw new InternalServerError();
     }
   };
@@ -59,7 +65,10 @@ module.exports = class missaoService {
 
   static updateQuestionData = async (id, dados) => {
     try {
-      const missaoAtualizato = Missao.updateQuestion(id, dados);
+      const missaoAtualizado = Missao.updateQuestion(id, dados);
+      if (!missaoAtualizado[0] === 1) {
+        throw new UnprocessableEntity();
+      }
       return true;
     } catch (err) {
       throw new UnprocessableEntity();

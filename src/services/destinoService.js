@@ -33,6 +33,9 @@ module.exports = class destinoService {
       }
       return destino;
     } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
       throw new InternalServerError();
     }
   };
@@ -48,9 +51,15 @@ module.exports = class destinoService {
 
   static updateDestinationData = async (id, dados) => {
     try {
-      const destinoAtualizato = Destino.updateDestination(id, dados);
+      const destinoAtualizado = await Destino.updateDestination(id, dados);
+      if (destinoAtualizado[0] === 0) {
+        throw new NotFound('Destino não encontrado.');
+      }
       return true;
     } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
       throw new UnprocessableEntity();
     }
   };

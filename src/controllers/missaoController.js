@@ -55,7 +55,7 @@ module.exports = class missaoController {
 
   static deleteQuestionById = async (req, res) => {
     try {
-      await missaoService.deleteQuestion(req.body.id);
+      await missaoService.deleteQuestion(req.params.id);
       return res.status(200).json({ message: 'Missão deletada.' });
     } catch (err) {
       return res.status(err.status || 500).json({

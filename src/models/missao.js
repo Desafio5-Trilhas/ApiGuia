@@ -23,13 +23,13 @@ class Missao extends Model {
 
   static async updateQuestion(id, data) {
     return await Missao.update(data, {
-      where: { id: id },
+      where: { id_missao: id },
     });
   }
 
   static async deleteQuestion(id) {
     return await Missao.destroy({
-      where: { id: id },
+      where: { id_missao: id },
     });
   }
 }
