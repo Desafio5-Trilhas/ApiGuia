@@ -27,7 +27,7 @@ module.exports = class missaoService {
   static findQuestionByDestinationPk = async (id_destino) => {
     try {
       const missoes = await Missao.getAllQuestionsByDestination(id_destino);
-      if (!destino) {
+      if (!missoes) {
         throw new NotFound('Missões não encontradas ou Destino inexistente.');
       }
       return missoes;
@@ -42,7 +42,7 @@ module.exports = class missaoService {
   static findQuestionByPk = async (id) => {
     try {
       const missoes = await Missao.findQuestionById(id);
-      if (!destino) {
+      if (!missoes) {
         throw new NotFound('Missão não encontrado.');
       }
       return missoes;

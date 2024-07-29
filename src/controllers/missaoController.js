@@ -30,7 +30,7 @@ module.exports = class missaoController {
   static findQuestionByDestinationId = async (req, res) => {
     try {
       const missoesDestino = await missaoService.findQuestionByDestinationPk(
-        req.params.id,
+        req.params.id_destino,
       );
       return res.status(200).json(missoesDestino);
     } catch (err) {
@@ -43,7 +43,7 @@ module.exports = class missaoController {
 
   static findQuestionById = async (req, res) => {
     try {
-      const missao = await missaoService.findQuestionByPk(req.params.id);
+      const missao = await missaoService.findQuestionByPk(req.params.id_missao);
       return res.status(200).json(missao);
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -55,7 +55,7 @@ module.exports = class missaoController {
 
   static deleteQuestionById = async (req, res) => {
     try {
-      await missaoService.deleteQuestion(req.params.id);
+      await missaoService.deleteQuestion(req.params.id_missao);
       return res.status(200).json({ message: 'Missão deletada.' });
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -68,7 +68,7 @@ module.exports = class missaoController {
   static updateDataQuestion = async (req, res) => {
     try {
       const missaoAtualizada = await missaoService.updateQuestionData(
-        req.params.id,
+        req.params.id_missao,
         req.body,
       );
       return res.status(200).json({ message: 'Missão atualizada.' });

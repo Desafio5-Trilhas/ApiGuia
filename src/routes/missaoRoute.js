@@ -6,18 +6,22 @@ const routes = express.Router();
 routes.post('/api/missao', verifyApiKey, missaoController.createQuestion);
 routes.get('/api/missao', verifyApiKey, missaoController.findQuestions);
 routes.get(
-  '/api/missao/:id_missao',
+  '/api/missao/id/:id_missao',
   verifyApiKey,
   missaoController.findQuestionById,
 );
 routes.get(
-  '/api/missao/:id_destino',
+  '/api/missao/destino/:id_destino',
   verifyApiKey,
   missaoController.findQuestionByDestinationId,
 );
-routes.put('/api/missao', verifyApiKey, missaoController.updateDataQuestion);
+routes.put(
+  '/api/missao/:id_missao',
+  verifyApiKey,
+  missaoController.updateDataQuestion,
+);
 routes.delete(
-  '/api/missao/:id',
+  '/api/missao/:id_missao',
   verifyApiKey,
   missaoController.deleteQuestionById,
 );
