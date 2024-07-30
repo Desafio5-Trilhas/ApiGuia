@@ -21,6 +21,8 @@ tags:
   description: Ações quanto às missões por destino turístico
 - name: AcessoHistorico
   description: Ações quanto ao histórico de acesso do usuário aos destinos
+- name: MissaoConcluida
+  description: Ações quanto as missões concluidas pelo usuario
 servers:
   - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
@@ -1006,6 +1008,113 @@ paths:
                     type: integer
                   message:
                     type: string          
+                    
+  /api/missao-concluida:
+    post:
+      tags:
+      - MissaoConcluida
+      summary: Registra uma missao concluída
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data_finalizacao: 
+                  type: string
+                  format: date-time
+                ultima_dica:
+                  type: string
+                id_missao:
+                  type: integer
+                id_usuario:
+                  type: integer 
+                id_destino:
+                  type: integer       
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Missão concluída registrada."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string 
+  /api/missao-concluida/{id_usuario}:
+    get:
+      summary: Retorna informações do historico de acesso do usuario aos destinos
+      tags:
+      - MissaoConcluida
+      parameters:
+      - name: id_usuario
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MissaoConcluida"  
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Não há missões concluídas."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string          
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -1082,6 +1191,22 @@ components:
           type: integer
         data_acesso:
           type: string
+    MissaoConcluida:
+      type: object
+      properties:
+        id_missao_concluida:
+          type: integer
+        data_finalizacao:
+          type: string
+          format: date-time
+        ultima_dica:
+          type: string
+        id_missao:
+          type: integer
+        id_usuario:
+          type: integer
+        id_destino:
+          type: integer
     ApiKeyError:
       type: object
       properties:
