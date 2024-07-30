@@ -52,8 +52,8 @@ module.exports = class destinoService {
   static updateDestinationData = async (id, dados) => {
     try {
       const destinoAtualizado = await Destino.updateDestination(id, dados);
-      if (destinoAtualizado[0] === 0) {
-        throw new NotFound('Destino não encontrado.');
+      if (!destinoAtualizado[0] === 1) {
+        throw new UnprocessableEntity();
       }
       return true;
     } catch (err) {

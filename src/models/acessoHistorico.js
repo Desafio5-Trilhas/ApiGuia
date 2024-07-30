@@ -3,7 +3,20 @@ const sequelize = require('../db/connection.js');
 const Usuario = require('./usuario.js');
 const Destino = require('./destino.js');
 
-class AcessoHistorico extends Model {}
+class AcessoHistorico extends Model {
+  static async createAccessRecords(newAcessoHistorico) {
+    return await AcessoHistorico.create(newAcessoHistorico);
+  }
+
+  static async getAccessRecordsByUser(id_usuario) {
+    return await AcessoHistorico.findAll({
+      where: {
+        id_usuario: id_usuario,
+      },
+      include: ['destinos'],
+    });
+  }
+}
 
 AcessoHistorico.init(
   {
