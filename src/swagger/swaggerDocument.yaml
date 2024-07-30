@@ -19,6 +19,8 @@ tags:
   description: Ações quanto ao Destino Turístico
 - name: Missões
   description: Ações quanto às missões por destino turístico
+- name: AcessoHistorico
+  description: Ações quanto ao histórico de acesso do usuário aos destinos
 servers:
   - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
@@ -887,7 +889,123 @@ paths:
                   status:
                     type: integer
                   message:
-                    type: string           
+                    type: string     
+
+  /api/acesso-historico:
+    post:
+      tags:
+      - AcessoHistorico
+      summary: Cria um novo histórico de acesso
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_destino:
+                  type: integer
+                id_usuario:
+                  type: integer 
+                data_acesso:
+                  type: string       
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Histórico de acesso criado com sucesso."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string 
+  /api/acesso-historio/{id_usuario}:
+    get:
+      summary: Retorna informações do historico de acesso do usuario aos destinos
+      tags:
+      - AcessoHistorico
+      parameters:
+      - name: id_usuario
+        in: path
+        schema: 
+          type: integer
+        required: true
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id_acesso_historico:
+                      type: integer
+                    id_destino:
+                      type: integer
+                    id_usuario:
+                      type: integer
+                    data_acesso:
+                      type: string
+                      format: date-time
+                    destinos:
+                      $ref: '#/components/schemas/Destino'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Histórico de acesso não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string          
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -952,6 +1070,17 @@ components:
         dica1:
           type: string
         dica2: 
+          type: string
+    AcessoHistorico:
+      type: object
+      properties:
+        id_acessoHistorico:
+          type: integer
+        id_destino:
+          type: integer
+        id_usuario:
+          type: integer
+        data_acesso:
           type: string
     ApiKeyError:
       type: object
