@@ -4,7 +4,19 @@ const Destino = require('./destino.js');
 const Usuario = require('./usuario.js');
 const Missao = require('./missao.js');
 
-class MissaoConcluida extends Model {}
+class MissaoConcluida extends Model {
+  static async createCompletedQuest(newMissaoConcluida) {
+    return await MissaoConcluida.create(newMissaoConcluida);
+  }
+
+  static async getCompletedQuestByUser(id_usuario) {
+    return await MissaoConcluida.findAll({
+      where: {
+        id_usuario: id_usuario,
+      },
+    });
+  }
+}
 
 MissaoConcluida.init(
   {

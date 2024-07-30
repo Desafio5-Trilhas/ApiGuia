@@ -3,6 +3,7 @@ const usuario = require('./usuarioRoute.js');
 const destino = require('./destinoRoute.js');
 const missao = require('./missaoRoute.js');
 const acessoHistorico = require('./acessoHistoricoRoute.js');
+const missaoConcluida = require('./missaoConcluidaRoute.js');
 
 const routes = (app) => {
   app
@@ -16,6 +17,7 @@ const routes = (app) => {
   app.use(destino);
   app.use(missao);
   app.use(acessoHistorico);
+  app.use(missaoConcluida);
 };
 
 module.exports = routes;
