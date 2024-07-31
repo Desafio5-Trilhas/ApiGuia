@@ -1,4 +1,4 @@
-const { Model, DataTypes, Op } = require('sequelize');
+const { Model, DataTypes, Op, fn, col } = require('sequelize');
 const sequelize = require('../db/connection.js');
 
 class Destino extends Model {
@@ -17,7 +17,7 @@ class Destino extends Model {
   }
 
   static async findDestinationByWord(palavraChave) {
-    return await Destino.findAll({
+    return await this.findAll({
       where: {
         titulo: {
           [Op.iLike]: `%${palavraChave}%`,

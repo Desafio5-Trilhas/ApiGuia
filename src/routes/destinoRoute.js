@@ -17,7 +17,7 @@ routes.get(
 );
 
 routes.get(
-  '/api/destino/pesquisa/:keyword',
+  '/api/destino',
   verifyApiKey,
   destinoController.findDestinationByKeyWord,
 );

@@ -48,6 +48,7 @@ module.exports = class destinoService {
       }
       return destinos;
     } catch (err) {
+      console.log(err);
       if (err.name === 'NotFound') {
         throw err;
       }

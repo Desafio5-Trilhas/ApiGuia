@@ -451,7 +451,72 @@ paths:
                   status:
                     type: integer
                   message:
-                    type: string        
+                    type: string
+    get:
+      summary: Retorna informações cadastradas do destino para pesquisa
+      tags:
+      - Destinos
+      parameters:
+      - name: keyword
+        in: query
+        schema: 
+          type: string
+        required: true
+        description: Palavra-chave para pesquisa de destinos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                properties:
+                  id_destino:
+                    type: integer
+                  titulo:
+                    type: string
+                  descricao:
+                    type: string
+                  imagens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Imagem'
+                  rotas:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rota'
+                  missoes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Missao'
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Destino não encontrado."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string           
   /api/destino/{id}:
     put:
       summary: Altera as informações cadastradas do destino
@@ -611,71 +676,6 @@ paths:
                     type: integer
                   message:
                     type: string 
-  /api/destino/pesquisa/{keyword}:
-    get:
-      summary: Retorna informações cadastradas do destino para pesquisa
-      tags:
-      - Destinos
-      parameters:
-      - name: keyword
-        in: path
-        schema: 
-          type: string
-        required: true
-      responses:
-        200:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                type: array
-                properties:
-                  id_destino:
-                    type: integer
-                  titulo:
-                    type: string
-                  descricao:
-                    type: string
-                  imagens:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Imagem'
-                  rotas:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Rota'
-                  missoes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Missao'
-        404:
-          description: Falha ao executar
-          content:
-            application/json:
-              example: "Destino não encontrado."
-        403:
-          description: API Key não fornecida
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiKeyError"   
-        401:
-          description: API Key inválida
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ApiKeyError"   
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  message:
-                    type: string   
 
   /api/missao:
     post:

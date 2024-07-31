@@ -41,9 +41,15 @@ module.exports = class destinoController {
 
   static findDestinationByKeyWord = async (req, res) => {
     try {
+      const palavraChave = req.query.keyword;
       const destinos = await destinoService.findDestinationByKeyWord(
-        req.params.keyword,
+        palavraChave,
       );
+      if (!palavraChave) {
+        return res
+          .status(400)
+          .json({ message: 'A palavra-chave é obrigatória' });
+      }
       return res.status(200).json(destinos);
     } catch (err) {
       return res.status(err.status || 500).json({
