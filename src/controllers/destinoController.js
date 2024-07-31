@@ -52,10 +52,11 @@ module.exports = class destinoController {
       }
       return res.status(200).json(destinos);
     } catch (err) {
-      return res.status(err.status || 500).json({
-        status: err.status || 500,
-        message: err.message || 'Internal Error',
-      });
+      // return res.status(err.status || 500).json({
+      //   status: err.status || 500,
+      //   message: err.message || 'Internal Error',
+      // });
+      return res.status(500).json(err);
     }
   };
 
