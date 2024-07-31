@@ -52,7 +52,8 @@ module.exports = class destinoService {
       if (err.name === 'NotFound') {
         throw err;
       }
-      throw new InternalServerError();
+      throw err;
+      //throw new InternalServerError();
     }
   };
 
