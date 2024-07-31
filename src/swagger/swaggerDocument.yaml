@@ -620,7 +620,7 @@ paths:
       - name: keyword
         in: path
         schema: 
-          type: integer
+          type: string
         required: true
       responses:
         200:
