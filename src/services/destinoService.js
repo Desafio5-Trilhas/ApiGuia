@@ -40,7 +40,7 @@ module.exports = class destinoService {
     }
   };
 
-  static findDestinationByKeyWord = async (palavraChave) => {
+  static findDestinationByKeyword = async (palavraChave) => {
     try {
       const destinos = await Destino.findDestinationByWord(palavraChave);
       if (!destinos) {
@@ -52,7 +52,7 @@ module.exports = class destinoService {
       if (err.name === 'NotFound') {
         throw err;
       }
-      throw err;
+      throw new Error(err);
       //throw new InternalServerError();
     }
   };

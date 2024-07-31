@@ -42,7 +42,7 @@ module.exports = class destinoController {
   static findDestinationByKeyWord = async (req, res) => {
     try {
       const palavraChave = req.query.keyword;
-      const destinos = await destinoService.findDestinationByKeyWord(
+      const destinos = await destinoService.findDestinationByKeyword(
         palavraChave,
       );
       if (!palavraChave) {
