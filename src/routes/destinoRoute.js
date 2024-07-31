@@ -4,6 +4,12 @@ const { verifyApiKey } = require('../middlewares/authMiddleware');
 
 const routes = express.Router();
 
+routes.get(
+  '/api/destino/pesquisa',
+  verifyApiKey,
+  destinoController.findDestinationByKeyWord,
+);
+
 routes.post(
   '/api/destino',
   verifyApiKey,
@@ -14,12 +20,6 @@ routes.get(
   '/api/destino/:id',
   verifyApiKey,
   destinoController.findDestinationById,
-);
-
-routes.get(
-  '/api/destino/pesquisa',
-  verifyApiKey,
-  destinoController.findDestinationByKeyWord,
 );
 
 routes.put(
