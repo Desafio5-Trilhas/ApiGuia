@@ -50,7 +50,6 @@ module.exports = class destinoService {
     } catch (err) {
       console.log(err);
       if (err.name === 'NotFound') {
-        console.error(err);
         throw err;
       }
       throw err;
