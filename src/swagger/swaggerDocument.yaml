@@ -628,7 +628,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: array
                 properties:
                   id_destino:
                     type: integer
