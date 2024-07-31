@@ -15,6 +15,13 @@ routes.get(
   verifyApiKey,
   destinoController.findDestinationById,
 );
+
+routes.get(
+  '/api/destino/pesquisa/:keyword',
+  verifyApiKey,
+  destinoController.findDestinationByKeyWord,
+);
+
 routes.put(
   '/api/destino/:id',
   verifyApiKey,

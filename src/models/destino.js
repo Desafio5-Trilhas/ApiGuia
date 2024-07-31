@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Op } = require('sequelize');
 const sequelize = require('../db/connection.js');
 
 class Destino extends Model {
@@ -12,6 +12,17 @@ class Destino extends Model {
 
   static async findDestinationById(id) {
     return await Destino.findByPk(id, {
+      include: ['imagens', 'rotas', 'missoes'],
+    });
+  }
+
+  static async findDestinationByWord(palavraChave) {
+    return await Destino.findAll({
+      where: {
+        titulo: {
+          [Op.iLike]: `%${palavraChave}%`,
+        },
+      },
       include: ['imagens', 'rotas', 'missoes'],
     });
   }

@@ -39,6 +39,20 @@ module.exports = class destinoController {
     }
   };
 
+  static findDestinationByKeyWord = async (req, res) => {
+    try {
+      const destinos = await destinoService.findDestinationByKeyWord(
+        req.params.keyword,
+      );
+      return res.status(200).json(destinos);
+    } catch (err) {
+      return res.status(err.status || 500).json({
+        status: err.status || 500,
+        message: err.message || 'Internal Error',
+      });
+    }
+  };
+
   static deleteDestinationById = async (req, res) => {
     try {
       await destinoService.deleteDestination(req.params.id);

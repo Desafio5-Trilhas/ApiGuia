@@ -40,6 +40,21 @@ module.exports = class destinoService {
     }
   };
 
+  static findDestinationByKeyWord = async (palavraChave) => {
+    try {
+      const destinos = await Destino.findDestinationByWord(palavraChave);
+      if (!destinos) {
+        throw new NotFound('Destinos não encontrados.');
+      }
+      return destinos;
+    } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
+      throw new InternalServerError();
+    }
+  };
+
   static deleteDestination = async (id) => {
     try {
       await Destino.deleteDestination(id);
