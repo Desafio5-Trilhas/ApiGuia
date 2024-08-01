@@ -8,7 +8,7 @@ const Usuario = require('./usuario.js');
 
 const defineAssociations = () => {
   // Associação com Imagem-Destino
-  Destino.hasMany(Imagem, { foreignKey: 'id_destino', as: 'imagens' });
+  Destino.hasMany(Imagem, { foreignKey: 'id_destino', as: 'imagems' });
   Imagem.belongsTo(Destino, { foreignKey: 'id_destino', as: 'destinos' });
 
   // Associação com Rota-Destino
@@ -16,7 +16,7 @@ const defineAssociations = () => {
   Rota.belongsTo(Destino, { foreignKey: 'id_destino', as: 'destinos' });
 
   // Associação com Missao-Destino
-  Destino.hasMany(Missao, { foreignKey: 'id_destino', as: 'missoes' });
+  Destino.hasMany(Missao, { foreignKey: 'id_destino', as: 'missaos' });
   Missao.belongsTo(Destino, { foreignKey: 'id_destino', as: 'destinos' });
 
   // Associação com MissaoConcluida-Destino
