@@ -26,4 +26,10 @@ routes.delete(
   missaoController.deleteQuestionById,
 );
 
+routes.post(
+  '/api/missao/valida-missao',
+  verifyApiKey,
+  missaoController.validateQuestAnswer,
+);
+
 module.exports = routes;

@@ -83,14 +83,15 @@ module.exports = class missaoController {
 
   static validateQuestAnswer = async (req, res) => {
     try {
-      let result = { message: 'Sucesso' };
+      let result;
       const resultado = await missaoService.answerQuestions(req.body);
       if (resultado) {
-        result = { message: resultado };
+        result = { message: 'Falha', id: resultado };
       } else {
         await missaoConcluidaService.createMultipleCompletedQuests(req.body);
+        result = { message: 'Sucesso', id: resultado };
       }
-      return res.status(200).json({ result });
+      return res.status(201).json({ result });
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,

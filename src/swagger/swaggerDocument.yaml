@@ -955,7 +955,80 @@ paths:
                     type: integer
                   message:
                     type: string     
+  /api/missao/valida-missao:
+    post:
+      tags:
+        - Missões
+      summary: Valida as três missões e registra caso estejam corretas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_missao:
+                  type: integer
+                id_usuario:
+                  type: integer
+                id_destino:
+                  type: integer 
+                ultima_dica:
+                  type: string
+                resposta:
+                  type: string   
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  ids:
+                    type: array
+                    items:
+                      type: string
+                examples:
+                  example1:
+                    summary: Usuario falhou ao responder algum(as) missoes
+                    value:
+                      message: "Falha"
+                      ids: ["id_1", "id_2", "id_3"]
+                  example2:
+                    summary: Usuario acertou as três missoes
+                    value:
+                      message: "Sucesso"
+                      ids: []
 
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"       
+        422:
+          description: Erros de validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        param:
+                          type: string         
   /api/acesso-historico:
     post:
       tags:
