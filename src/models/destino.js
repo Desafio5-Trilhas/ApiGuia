@@ -23,7 +23,7 @@ class Destino extends Model {
           [Op.iLike]: `%${palavraChave}%`,
         },
       },
-      include: ['fk_idDestino', 'rotas', 'missoes'],
+      include: ['imagens', 'rotas', 'missoes'],
     });
   }
 
