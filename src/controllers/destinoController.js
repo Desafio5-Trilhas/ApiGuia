@@ -1,3 +1,4 @@
+const acessoHistoricoService = require('../services/acessoHistoricoService.js');
 const destinoService = require('../services/destinoService.js');
 
 module.exports = class destinoController {
@@ -30,6 +31,13 @@ module.exports = class destinoController {
   static findDestinationById = async (req, res) => {
     try {
       const destino = await destinoService.findDestinationByPk(req.params.id);
+      if (req.query.id_usuario) {
+        const novoAcesso = await acessoHistoricoService.createNewAcessRecords({
+          id_usuario: req.query.id_usuario,
+          id_destino: destino.id_destino,
+          data_acesso: new Date().toISOString(),
+        });
+      }
       return res.status(200).json(destino);
     } catch (err) {
       return res.status(err.status || 500).json({
@@ -52,11 +60,10 @@ module.exports = class destinoController {
       }
       return res.status(200).json(destinos);
     } catch (err) {
-      // return res.status(err.status || 500).json({
-      //   status: err.status || 500,
-      //   message: err.message || 'Internal Error',
-      // });
-      return res.status(500).json(err);
+      return res.status(err.status || 500).json({
+        status: err.status || 500,
+        message: err.message || 'Internal Error',
+      });
     }
   };
 

@@ -5,7 +5,7 @@ const {
   InternalServerError,
 } = require('./exceptions/httpRequestError');
 
-module.exports = class historicoAcessoService {
+module.exports = class acessoHistoricoService {
   static createNewAcessRecords = async (newAcessoHistorico) => {
     try {
       const acessoHistorico = await AcessoHistorico.createAccessRecords(
@@ -13,7 +13,8 @@ module.exports = class historicoAcessoService {
       );
       return acessoHistorico;
     } catch (err) {
-      throw new UnprocessableEntity();
+      console.log(err);
+      throw new UnprocessableEntity('Erro ao registrar acesso.');
     }
   };
 

@@ -508,6 +508,12 @@ paths:
         schema: 
           type: integer
         required: true
+      - name: id_usuario
+        in: query
+        schema:
+          type: integer
+        required: false
+        description: ID do usuário que está fazendo a requisição
       responses:
         200:
           description: Sucesso
@@ -640,14 +646,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Imagem'
-                  rotas:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Rota'
-                  missoes:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Missao'
         404:
           description: Falha ao executar
           content:
