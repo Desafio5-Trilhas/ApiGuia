@@ -81,7 +81,7 @@ module.exports = class missaoService {
       questoes.forEach(async (questao) => {
         const id = questao.id_missao;
         const missao = await Missao.findQuestionById(id);
-        if (missao.titulo.toLowerCase() !== questao.resposta.toLowerCase()) {
+        if (missao.descricao.toLowerCase() !== questao.resposta.toLowerCase()) {
           resultado.push(id);
         }
       });
