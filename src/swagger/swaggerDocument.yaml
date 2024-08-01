@@ -1013,7 +1013,7 @@ paths:
                       properties:
                         param:
                           type: string 
-  /api/acesso-historio/{id_usuario}:
+  /api/acesso-historico/{id_usuario}:
     get:
       summary: Retorna informações do historico de acesso do usuario aos destinos
       tags:

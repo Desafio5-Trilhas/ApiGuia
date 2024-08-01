@@ -16,6 +16,7 @@ routes.post(
   destinoController.createNewDestination,
 );
 routes.get('/api/destino', verifyApiKey, destinoController.findDestinations);
+
 routes.get(
   '/api/destino/:id',
   verifyApiKey,
