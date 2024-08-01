@@ -74,4 +74,20 @@ module.exports = class missaoService {
       throw new UnprocessableEntity();
     }
   };
+
+  static answerQuestions = async (questoes) => {
+    try {
+      let resultado = [];
+      questoes.forEach(async (questao) => {
+        const id = questao.id_missao;
+        const missao = await Missao.findQuestionById(id);
+        if (missao.titulo.toLowerCase() !== questao.resposta.toLowerCase()) {
+          resultado.push(id);
+        }
+      });
+      return resultado;
+    } catch (err) {
+      throw new UnprocessableEntity();
+    }
+  };
 };

@@ -1,3 +1,4 @@
+const missaoConcluidaService = require('../services/missaoConcluidaService.js');
 const missaoService = require('../services/missaoService.js');
 
 module.exports = class missaoController {
@@ -72,6 +73,24 @@ module.exports = class missaoController {
         req.body,
       );
       return res.status(200).json({ message: 'Missão atualizada.' });
+    } catch (err) {
+      return res.status(err.status || 500).json({
+        status: err.status || 500,
+        message: err.message || 'Internal Error',
+      });
+    }
+  };
+
+  static validateQuestAnswer = async (req, res) => {
+    try {
+      let result = { message: 'Sucesso' };
+      const resultado = await missaoService.answerQuestions(req.body);
+      if (resultado) {
+        result = { message: resultado };
+      } else {
+        await missaoConcluidaService.createMultipleCompletedQuests(req.body);
+      }
+      return res.status(200).json({ result });
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,

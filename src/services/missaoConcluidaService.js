@@ -34,4 +34,23 @@ module.exports = class missaoConcluidaService {
       throw new InternalServerError();
     }
   };
+
+  static createMultipleCompletedQuests = async (questoes) => {
+    try {
+      const promises = questoes.map(async (questao) => {
+        return this.createNewCompletedQuest({
+          data_finalizacao: new Date().toISOString(),
+          ultima_dica: questao.ultima_dica,
+          id_missao: questao.id_missao,
+          id_usuario: questao.id_usuario,
+          id_destino: questao.id_destino,
+        });
+      });
+
+      await Promise.all(promises);
+      return true;
+    } catch (err) {
+      throw new UnprocessableEntity();
+    }
+  };
 };
