@@ -7,7 +7,7 @@ class Destino extends Model {
   }
 
   static async getAllDestinations() {
-    return await Destino.findAll();
+    return await Destino.findAll({ include: ['imagems'] });
   }
 
   static async findDestinationById(id_destino) {
