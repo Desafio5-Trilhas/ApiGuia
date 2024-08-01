@@ -85,7 +85,7 @@ module.exports = class missaoController {
     try {
       let result;
       const resultado = await missaoService.answerQuestions(req.body);
-      if (resultado) {
+      if (resultado.length != 3 || resultado == null) {
         result = { message: 'Falha', id: resultado };
       } else {
         await missaoConcluidaService.createMultipleCompletedQuests(req.body);

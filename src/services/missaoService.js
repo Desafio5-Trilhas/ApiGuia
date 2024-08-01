@@ -78,13 +78,13 @@ module.exports = class missaoService {
   static answerQuestions = async (questoes) => {
     try {
       let resultado = [];
-      questoes.forEach(async (questao) => {
+      for (const questao of questoes) {
         const id = questao.id_missao;
         const missao = await Missao.findQuestionById(id);
-        if (missao.descricao.toLowerCase() !== questao.resposta.toLowerCase()) {
+        if (missao.descricao.toLowerCase() == questao.resposta.toLowerCase()) {
           resultado.push(id);
         }
-      });
+      };
       return resultado;
     } catch (err) {
       throw new UnprocessableEntity();
