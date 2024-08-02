@@ -6,6 +6,8 @@ module.exports = class imagemService {
       const imagem = await Imagem.saveImage(filePath, idDestino);
       return imagem;
     } catch (err) {
+      console.log(err);
+      throw err;
       throw new UnprocessableEntity();
     }
   };

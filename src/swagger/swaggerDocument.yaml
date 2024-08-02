@@ -293,6 +293,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Usuario"
+                imagens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Imagem'
         404:
           description: Falha ao executar
           content:

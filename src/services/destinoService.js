@@ -21,6 +21,8 @@ module.exports = class destinoService {
       const destinos = await Destino.getAllDestinations();
       return destinos;
     } catch (err) {
+      console.log(err);
+      throw err;
       throw new InternalServerError();
     }
   };
