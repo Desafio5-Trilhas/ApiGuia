@@ -1263,22 +1263,20 @@ paths:
       - Imagem
       summary: Faz o upload de uma imagem
       description: Recebe uma imagem e um id_destino para armazenar a imagem no banco de dados.
-      consumes:
-        - multipart/form-data
-      parameters:
-        - name: imagem
-          in: formData
-          description: Imagem para upload
-          required: true
-          schema:
-            type: string
-            format: binary
-        - name: id_destino
-          in: formData
-          description: ID do destino
-          required: true
-          schema:
-            type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imagem:
+                  type: string
+                  format: binary
+                id_destino:
+                  type: integer
+                  description: ID do destino
+                  example: 1
+        required: true
       responses:
         200:
           description: Imagem salva com sucesso
