@@ -1352,9 +1352,9 @@ components:
       properties:
         id_imagem:
           type: integer
-        link:
+        imagem:
           type: string
-          format: uri
+          format: binary
         id_destino:
           type: integer
     Rota:
