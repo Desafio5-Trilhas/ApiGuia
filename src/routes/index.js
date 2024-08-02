@@ -4,6 +4,7 @@ const destino = require('./destinoRoute.js');
 const missao = require('./missaoRoute.js');
 const acessoHistorico = require('./acessoHistoricoRoute.js');
 const missaoConcluida = require('./missaoConcluidaRoute.js');
+const imagem = require('./imagemRoute.js');
 
 const routes = (app) => {
   app
@@ -18,6 +19,7 @@ const routes = (app) => {
   app.use(missao);
   app.use(acessoHistorico);
   app.use(missaoConcluida);
+  app.use(imagem);
 };
 
 module.exports = routes;

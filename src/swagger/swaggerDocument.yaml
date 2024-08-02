@@ -23,6 +23,8 @@ tags:
   description: Ações quanto ao histórico de acesso do usuário aos destinos
 - name: MissaoConcluida
   description: Ações quanto as missões concluidas pelo usuario
+- name: Imagem
+  description: Ações quanto as imagens dos pontos turísticos
 servers:
   - url: https://api-guia-turistico.vercel.app/
   - url: http://localhost:3000/
@@ -451,7 +453,11 @@ paths:
                   status:
                     type: integer
                   message:
-                    type: string        
+                    type: string
+                  imagens:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Imagem'        
   /api/destino/{id}:
     put:
       summary: Altera as informações cadastradas do destino
@@ -1250,7 +1256,68 @@ paths:
                   status:
                     type: integer
                   message:
-                    type: string          
+                    type: string        
+  /api/imagem:
+    post:
+      tags:
+      - Imagem
+      summary: Faz o upload de uma imagem
+      description: Recebe uma imagem e um id_destino para armazenar a imagem no banco de dados.
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: imagem
+          in: formData
+          description: Imagem para upload
+          required: true
+          schema:
+            type: string
+            format: binary
+        - name: id_destino
+          in: formData
+          description: ID do destino
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Imagem salva com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Imagem salva com sucesso."
+        404:
+          description: Falha ao executar
+          content:
+            application/json:
+              example: "Não há missões concluídas."
+        403:
+          description: API Key não fornecida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        401:
+          description: API Key inválida
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyError"   
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  message:
+                    type: string              
 components:
   securitySchemes:
     ApiKeyAuth:

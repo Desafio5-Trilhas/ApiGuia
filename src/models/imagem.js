@@ -2,7 +2,11 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../db/connection.js');
 const Destino = require('./destino.js');
 
-class Imagem extends Model {}
+class Imagem extends Model {
+  static async saveImage(file, id) {
+    return await Imagem.create({ imagem: file, id_destino: id });
+  }
+}
 
 Imagem.init(
   {
@@ -11,8 +15,8 @@ Imagem.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    link: {
-      type: DataTypes.STRING(45),
+    imagem: {
+      type: DataTypes.BLOB,
       allowNull: false,
     },
     id_destino: {
