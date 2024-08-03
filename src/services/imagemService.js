@@ -18,7 +18,7 @@ module.exports = class imagemService {
       if (!imagem) {
         throw new NotFound('Imagem não encontrado.');
       }
-      return imagem;
+      return imagem.buffer;
     } catch (err) {
       if (err.name === 'NotFound') {
         throw err;

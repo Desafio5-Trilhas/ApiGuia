@@ -11,10 +11,7 @@ module.exports = class imagemController {
           message: 'Nenhuma imagem enviada',
         });
       }
-      const savedImage = await imagemService.saveImageDB(
-        imagem.buffer,
-        id_destino,
-      );
+      const savedImage = await imagemService.saveImageDB(imagem, id_destino);
       return res
         .status(201)
         .json({ status: 201, message: 'Imagem salva com sucesso.' });
