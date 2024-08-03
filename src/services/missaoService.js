@@ -84,7 +84,7 @@ module.exports = class missaoService {
         if (missao.descricao.toLowerCase() == questao.resposta.toLowerCase()) {
           resultado.push(id);
         }
-      };
+      }
       return resultado;
     } catch (err) {
       throw new UnprocessableEntity();

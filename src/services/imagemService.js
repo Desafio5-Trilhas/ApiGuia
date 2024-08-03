@@ -11,4 +11,19 @@ module.exports = class imagemService {
       throw new UnprocessableEntity();
     }
   };
+
+  static getImage = async (id) => {
+    try {
+      const imagem = await Imagem.findImageById(id);
+      if (!imagem) {
+        throw new NotFound('Imagem não encontrado.');
+      }
+      return imagem;
+    } catch (err) {
+      if (err.name === 'NotFound') {
+        throw err;
+      }
+      throw new InternalServerError();
+    }
+  };
 };

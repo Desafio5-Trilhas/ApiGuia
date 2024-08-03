@@ -6,6 +6,10 @@ class Imagem extends Model {
   static async saveImage(file, id) {
     return await Imagem.create({ imagem: file, id_destino: id });
   }
+
+  static async findImageById(id) {
+    return await Imagem.findByPk(id);
+  }
 }
 
 Imagem.init(

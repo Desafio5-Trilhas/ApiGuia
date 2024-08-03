@@ -14,6 +14,6 @@ routes.post(
   upload.single('imagem'),
   imagemController.saveImageToDB,
 );
-routes.get('/api/imagem', verifyApiKey, imagemController.saveImageToDB);
+routes.get('/api/imagem/:id_imagem', imagemController.returnImage);
 
 module.exports = routes;
