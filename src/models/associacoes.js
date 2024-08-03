@@ -27,7 +27,7 @@ const defineAssociations = () => {
   Destino.hasMany(AcessoHistorico, { foreignKey: 'id_destino' });
   AcessoHistorico.belongsTo(Destino, {
     foreignKey: 'id_destino',
-    as: 'destinos',
+    as: 'destino',
   });
 
   //Associação com Usuario-AcessoHistorico

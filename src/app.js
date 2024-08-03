@@ -32,6 +32,7 @@ app.use(cors());
     console.log('API conectada ao banco de dados.');
   } catch (error) {
     console.error('Não foi possível conectar ao banco de dados:', error);
+    process.exit(1);
   }
 })();
 

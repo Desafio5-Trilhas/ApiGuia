@@ -16,7 +16,7 @@ Imagem.init(
       autoIncrement: true,
     },
     imagem: {
-      type: DataTypes.BLOB,
+      type: DataTypes.BLOB('long'),
       allowNull: false,
     },
     id_destino: {
