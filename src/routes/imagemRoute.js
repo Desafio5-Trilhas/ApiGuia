@@ -5,15 +5,29 @@ const multer = require('multer');
 
 const routes = express.Router();
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1 * 1024 * 1024 },
+//   fileFilter: (req, file, cb) => {
+//     const allowedTypes = /jpeg|jpg|png/;
+//     const extname = allowedTypes.test(file.mimetype);
+//     const mimetype = allowedTypes.test(
+//       file.originalname.split('.').pop().toLowerCase(),
+//     );
+//     if (extname && mimetype) {
+//       return cb(null, true);
+//     } else {
+//       cb(new Error('Tipo de arquivo não permitido'));
+//     }
+//   },
+// });
 
-routes.post(
-  '/api/imagem',
+routes.post('/api/imagem', verifyApiKey, imagemController.saveImageToDB);
+routes.get(
+  '/api/imagem/:id_imagem',
   verifyApiKey,
-  upload.single('imagem'),
-  imagemController.saveImageToDB,
+  imagemController.returnImage,
 );
-routes.get('/api/imagem/:id_imagem', imagemController.returnImage);
 
 module.exports = routes;

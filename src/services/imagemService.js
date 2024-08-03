@@ -6,8 +6,6 @@ module.exports = class imagemService {
       const imagem = await Imagem.saveImage(filePath, idDestino);
       return imagem;
     } catch (err) {
-      console.log(err);
-      throw err;
       throw new UnprocessableEntity();
     }
   };
@@ -18,7 +16,7 @@ module.exports = class imagemService {
       if (!imagem) {
         throw new NotFound('Imagem não encontrado.');
       }
-      return imagem.imagem;
+      return imagem;
     } catch (err) {
       if (err.name === 'NotFound') {
         throw err;

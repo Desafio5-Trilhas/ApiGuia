@@ -8,7 +8,7 @@ const imagem = require('./imagemRoute.js');
 
 const routes = (app) => {
   app
-    .route('/api')
+    .route('/')
     .get((req, res) =>
       res.status(200).send('Você está na API do Guia Turístico MA.'),
     );

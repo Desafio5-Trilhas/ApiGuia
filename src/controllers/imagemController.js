@@ -4,7 +4,7 @@ module.exports = class imagemController {
   static saveImageToDB = async (req, res) => {
     try {
       const id_destino = req.body.id_destino;
-      const imagem = req.file;
+      const imagem = req.body.imagem;
       if (!imagem) {
         return res.status(400).json({
           status: 400,
@@ -26,8 +26,7 @@ module.exports = class imagemController {
   static returnImage = async (req, res) => {
     try {
       const imagem = await imagemService.getImage(req.params.id_imagem);
-      res.setHeader('Content-Type', 'image/jpg');
-      return res.status(200).send(imagem.buffer);
+      return res.status(200).json(imagem);
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,
