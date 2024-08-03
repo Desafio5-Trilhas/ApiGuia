@@ -27,7 +27,7 @@ module.exports = class imagemController {
     try {
       const imagem = await imagemService.getImage(req.params.id_imagem);
       res.setHeader('Content-Type', 'image/jpg');
-      return res.status(200).send(imagem.imagem);
+      return res.status(200).send(imagem.buffer);
     } catch (err) {
       return res.status(err.status || 500).json({
         status: err.status || 500,
