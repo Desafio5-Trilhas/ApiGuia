@@ -88,6 +88,7 @@ module.exports = class missaoService {
       return resultado;
     } catch (err) {
       console.log(err);
+      throw err;
       throw new UnprocessableEntity();
     }
   };
