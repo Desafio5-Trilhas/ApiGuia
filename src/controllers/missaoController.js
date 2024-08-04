@@ -86,8 +86,9 @@ module.exports = class missaoController {
 
     try {
       let result;
+      let contQuestions = req.body.length
       const resultado = await missaoService.answerQuestions(req.body);
-      if (resultado.length != 3 || resultado == null) {
+      if (resultado.length != contQuestions || resultado == null) {
         result = { message: 'Falha', id: resultado };
       } else {
         let email = req.user.email
