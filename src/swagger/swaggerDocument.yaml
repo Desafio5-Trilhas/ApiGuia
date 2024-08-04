@@ -1375,13 +1375,14 @@ paths:
                     type: integer
                   message:
                     type: string
-
+                    
   /api/rota:
     post:
       tags:
       - Rota
       summary: Adiciona nova rota
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -1398,9 +1399,8 @@ paths:
                   type: number
                   format: double
                 longitude:
-                  type: number 
+                  type: number
                   format: double
-        required: true
       responses:
         200:
           description: Rota salva com sucesso
@@ -1445,23 +1445,25 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id_rota:
-                    type: integer
-                  id_destion:
-                    type: integer
-                  nome:
-                    type: string
-                  tipo:
-                    type: string
-                    description: referência à api do mapa
-                  latitude:
-                    type: number
-                    format: double
-                  longitude:
-                    type: number 
-                    format: double          
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id_rota:
+                      type: integer
+                    id_destion:
+                      type: integer
+                    nome:
+                      type: string
+                    tipo:
+                      type: string
+                      description: referência à api do mapa
+                    latitude:
+                      type: number
+                      format: double
+                    longitude:
+                      type: number
+                      format: double          
         403:
           description: API Key não fornecida
           content:
@@ -1504,22 +1506,21 @@ paths:
               schema:
                 type: object
                 properties:
-              properties:
-                id_rota:
-                  type: integer
-                id_destion:
-                  type: integer
-                nome:
-                  type: string
-                tipo:
-                  type: string
-                  description: referência à api do mapa
-                latitude:
-                  type: number
-                  format: double
-                longitude:
-                  type: number 
-                  format: double          
+                  id_rota:
+                    type: integer
+                  id_destion:
+                    type: integer
+                  nome:
+                    type: string
+                  tipo:
+                    type: string
+                    description: referência à api do mapa
+                  latitude:
+                    type: number
+                    format: double
+                  longitude:
+                    type: number
+                    format: double          
         403:
           description: API Key não fornecida
           content:
@@ -1543,6 +1544,7 @@ paths:
                     type: integer
                   message:
                     type: string
+
 
 components:
   securitySchemes:
