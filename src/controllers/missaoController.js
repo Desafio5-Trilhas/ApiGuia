@@ -82,13 +82,18 @@ module.exports = class missaoController {
   };
 
   static validateQuestAnswer = async (req, res) => {
+    const Usuario = require('../models/usuario');
+
     try {
       let result;
       const resultado = await missaoService.answerQuestions(req.body);
       if (resultado.length != 3 || resultado == null) {
         result = { message: 'Falha', id: resultado };
       } else {
-        await missaoConcluidaService.createMultipleCompletedQuests(req.body);
+        let email = req.user.email
+        let user = await Usuario.findOne({ where: { email } })
+
+        await missaoConcluidaService.createMultipleCompletedQuests(req.body, user.id_usuario);
         result = { message: 'Sucesso', id: resultado };
       }
       return res.status(201).json({ result });

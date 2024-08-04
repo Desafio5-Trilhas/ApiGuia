@@ -1,6 +1,6 @@
 const express = require('express');
 const missaoController = require('../controllers/missaoController');
-const { verifyApiKey } = require('../middlewares/authMiddleware');
+const { verifyApiKey, verifyToken } = require('../middlewares/authMiddleware');
 const routes = express.Router();
 
 routes.post('/api/missao', verifyApiKey, missaoController.createQuestion);
@@ -28,6 +28,7 @@ routes.delete(
 
 routes.post(
   '/api/missao/valida-missao',
+  verifyToken,
   verifyApiKey,
   missaoController.validateQuestAnswer,
 );

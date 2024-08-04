@@ -35,14 +35,14 @@ module.exports = class missaoConcluidaService {
     }
   };
 
-  static createMultipleCompletedQuests = async (questoes) => {
+  static createMultipleCompletedQuests = async (questoes, id_usuario) => {
     try {
       const promises = questoes.map(async (questao) => {
         return this.createNewCompletedQuest({
           data_finalizacao: new Date().toISOString(),
           ultima_dica: questao.ultima_dica,
           id_missao: questao.id_missao,
-          id_usuario: questao.id_usuario,
+          id_usuario: id_usuario,
           id_destino: questao.id_destino,
         });
       });

@@ -994,8 +994,6 @@ paths:
               properties:
                 id_missao:
                   type: integer
-                id_usuario:
-                  type: integer
                 id_destino:
                   type: integer 
                 ultima_dica:
@@ -1068,8 +1066,6 @@ paths:
               properties:
                 id_destino:
                   type: integer
-                id_usuario:
-                  type: integer 
                 data_acesso:
                   type: string       
       responses:
@@ -1109,17 +1105,11 @@ paths:
                       properties:
                         param:
                           type: string 
-  /api/acesso-historico/{id_usuario}:
+  /api/acesso-historico/:
     get:
       summary: Retorna informações do historico de acesso do usuario aos destinos
       tags:
       - AcessoHistorico
-      parameters:
-      - name: id_usuario
-        in: path
-        schema: 
-          type: integer
-        required: true
       responses:
         200:
           description: Sucesso
