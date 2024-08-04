@@ -1435,7 +1435,7 @@ paths:
                     type: integer
                   message:
                     type: string    
-   get:
+    get:
       summary: Retorna as rotas registradas
       tags:
       - Rota
