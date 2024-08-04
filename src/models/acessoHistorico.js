@@ -13,7 +13,7 @@ class AcessoHistorico extends Model {
       where: {
         id_usuario: id_usuario,
       },
-      include: ['destinos'],
+      include: ['destino'],
     });
   }
 }
