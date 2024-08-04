@@ -25,7 +25,7 @@ tags:
   description: Ações quanto as missões concluidas pelo usuario
 - name: Imagem
   description: Ações quanto as imagens dos pontos turísticos
-- Rota
+- name: Rota
   description: Ações quanto as rotas atrativas dos pontos turísticos
 servers:
   - url: https://api-guia-turistico.vercel.app/
