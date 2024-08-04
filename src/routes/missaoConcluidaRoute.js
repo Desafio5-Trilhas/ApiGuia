@@ -1,5 +1,5 @@
 const express = require('express');
-const { verifyApiKey } = require('../middlewares/authMiddleware');
+const { verifyApiKey, verifyToken } = require('../middlewares/authMiddleware');
 const missaoConcluidaController = require('../controllers/missaoConcluidaController');
 
 const routes = express.Router();
@@ -10,7 +10,8 @@ routes.post(
   missaoConcluidaController.createCompletedQuest,
 );
 routes.get(
-  '/api/missao-concluida/:id_usuario',
+  '/api/missao-concluida/',
+  verifyToken,
   verifyApiKey,
   missaoConcluidaController.findCompletedQuestById,
 );

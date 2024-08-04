@@ -19,10 +19,15 @@ module.exports = class missaoConcluidaController {
   };
 
   static findCompletedQuestById = async (req, res) => {
+    const Usuario = require('../models/usuario');
+      
     try {
+      let email = req.user.email
+      let user = await Usuario.findOne({ where: { email } })
+
       const missaoConcluidaUsuario =
         await missaoConcluidaService.findCompletedQuestByPk(
-          req.params.id_usuario,
+          user.id_usuario,
         );
       return res.status(200).json(missaoConcluidaUsuario);
     } catch (err) {

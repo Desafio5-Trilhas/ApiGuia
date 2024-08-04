@@ -1222,17 +1222,11 @@ paths:
                       properties:
                         param:
                           type: string 
-  /api/missao-concluida/{id_usuario}:
+  /api/missao-concluida/:
     get:
       summary: Retorna informações do historico de acesso do usuario aos destinos
       tags:
       - MissaoConcluida
-      parameters:
-      - name: id_usuario
-        in: path
-        schema: 
-          type: integer
-        required: true
       responses:
         200:
           description: Sucesso
