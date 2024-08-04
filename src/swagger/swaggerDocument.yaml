@@ -7,7 +7,7 @@ info:
     name: Suporte a Devs
     email: gabrielfelipecarvalho1@gmail.com
   license:
-    name: "Lincença: GPLv3"
+    name: "Licença: GPLv3"
     url: https://www.gnu.org/licenses/gpl-3.0.html
 externalDocs:
   description: Link repositório
@@ -844,7 +844,7 @@ paths:
       tags:
       - Missões
       parameters:
-      - name: id_missão
+      - name: id_missao
         in: path
         schema: 
           type: id
@@ -1375,7 +1375,7 @@ paths:
                     type: integer
                   message:
                     type: string
-                    
+
   /api/rota:
     post:
       tags:
@@ -1388,7 +1388,7 @@ paths:
             schema:
               type: object
               properties:
-                id_destion:
+                id_destino:
                   type: integer
                 nome:
                   type: string
@@ -1576,7 +1576,6 @@ components:
           type: string
         descricao:
           type: string
-      schemas:
     Imagem:
       type: object
       properties:
