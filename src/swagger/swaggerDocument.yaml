@@ -1396,11 +1396,9 @@ paths:
                   type: string
                   description: referência à api do mapa
                 latitude:
-                  type: number
-                  format: double
+                  type: string
                 longitude:
-                  type: number
-                  format: double
+                  type: string
       responses:
         200:
           description: Rota salva com sucesso
@@ -1459,11 +1457,9 @@ paths:
                       type: string
                       description: referência à api do mapa
                     latitude:
-                      type: number
-                      format: double
+                      type: string
                     longitude:
-                      type: number
-                      format: double          
+                      type: string          
         403:
           description: API Key não fornecida
           content:
@@ -1516,11 +1512,9 @@ paths:
                     type: string
                     description: referência à api do mapa
                   latitude:
-                    type: number
-                    format: double
+                    type: string
                   longitude:
-                    type: number
-                    format: double          
+                    type: string         
         403:
           description: API Key não fornecida
           content:
@@ -1598,11 +1592,9 @@ components:
         tipo:
           type: string
         latitude:
-          type: number
-          format: double
+          type: string
         longitude:
-          type: number
-          format: double
+          type: string
     Missao:
       type: object
       properties:
